@@ -1,0 +1,27 @@
+/* src/App.css */
+.App {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+h1 {
+  color: #333;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 20px;
+}
+
+h2 a {
+  text-decoration: none;
+  color: #0077cc;
+}
+
+h2 a:hover {
+  text-decoration: underline;
+}
