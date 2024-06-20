@@ -14,24 +14,26 @@ const ArticleGrid = () => {
   const currentPage = useSelector((state) => state.articles.currentPage);
   const totalPages = useSelector((state) => state.articles.pages);
 
-  const [query, setQuery] = useState("business"); // Default query
+  const [query, setQuery] = useState(""); // Default query
   const [page, setPage] = useState(1);
-  const [currentSection, setCurrentSection] = useState("business"); // Default section
+  const [currentSection, setCurrentSection] = useState(""); // Default section
 
   useEffect(() => {
     dispatch(fetchArticles(query, page, 12, "newest", currentSection));
-  }, [dispatch, query, page, currentSection]);
+  }, []);
 
   const handleSearch = (query) => {
     setQuery(query);
-    setPage(1); // Reset to first page when performing a new search
-    dispatch(fetchArticles(query, 1, 12, "newest", currentSection));
+    setPage(1);
+    setCurrentSection(""); // Reset to first page when performing a new search
+    dispatch(fetchArticles(query, 1, 12, "newest", ""));
   };
 
   const handleSectionClick = (section) => {
     setCurrentSection(section);
     setQuery(section); // Update query to the selected section
-    setPage(1); // Reset to first page when changing section
+    setPage(1);
+    dispatch(fetchArticles(section, 1, 12, "newest", section)); // Reset to first page when changing section
   };
 
   const nextPage = () => {

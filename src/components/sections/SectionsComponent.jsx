@@ -1,7 +1,22 @@
 import React from "react";
 
 const SectionsComponent = ({ onSectionClick }) => {
-  const sections = ["business", "sport", "music", "technology"]; // Example sections
+  const sections = [
+    "business",
+    "sport",
+    "music",
+    "technology",
+    "media",
+    "us-news",
+    "world",
+    "society",
+    "tv-and-radio",
+    "australia-news",
+    "uk-news",
+    "science",
+    "lifeandstyle",
+    "commentisfree",
+  ]; // Example sections
 
   return (
     <div className="sections">

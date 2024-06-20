@@ -1,5 +1,3 @@
-// actions/articleActions.js
-
 export const fetchArticles =
   (query = "", page = 1, pageSize = 12, orderBy = "newest", section = "") =>
   async (dispatch) => {
@@ -7,10 +5,23 @@ export const fetchArticles =
 
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      const response = await fetch(
-        `https://content.guardianapis.com/search?q=${query}&api-key=b6cc4b89-4977-45fa-8efa-d72716e68d49&show-fields=thumbnail&page=${page}&page-size=${pageSize}&order-by=${orderBy}&tag=${section}/${section}`
-      );
+
+      // Constructing the API URL based on whether section or query is provided
+      let apiUrl = `https://content.guardianapis.com/search?api-key=b6cc4b89-4977-45fa-8efa-d72716e68d49&show-fields=thumbnail&page=${page}&page-size=${pageSize}&order-by=${orderBy}`;
+
+      // Adding query parameter if provided
+      if (query) {
+        apiUrl += `&q=${query}`;
+      }
+
+      // Adding section/tag parameter if provided
+      if (section) {
+        apiUrl += `&tag=${section}/${section}`;
+      }
+
+      const response = await fetch(apiUrl);
       const data = await response.json();
+
       dispatch({
         type: "FETCH_ARTICLES_SUCCESS",
         payload: {
