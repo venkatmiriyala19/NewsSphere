@@ -4,6 +4,7 @@ import { fetchArticles } from "../../actions/articleActions.js";
 import "./ArticleGrid.css";
 import AnimatedBackground from "../animatedBackground/AnimatedBackground";
 import SearchComponent from "../searchComponent/SearchComponent";
+import SectionsComponent from "../sections/SectionsComponent.jsx";
 
 const ArticleGrid = () => {
   const dispatch = useDispatch();
@@ -13,18 +14,25 @@ const ArticleGrid = () => {
   const currentPage = useSelector((state) => state.articles.currentPage);
   const totalPages = useSelector((state) => state.articles.pages);
 
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState("business"); // Default query
   const [page, setPage] = useState(1);
+  const [currentSection, setCurrentSection] = useState("business"); // Default section
+
+  useEffect(() => {
+    dispatch(fetchArticles(query, page, 12, "newest", currentSection));
+  }, [dispatch, query, page, currentSection]);
 
   const handleSearch = (query) => {
     setQuery(query);
     setPage(1); // Reset to first page when performing a new search
-    dispatch(fetchArticles(query, 1));
+    dispatch(fetchArticles(query, 1, 12, "newest", currentSection));
   };
 
-  useEffect(() => {
-    dispatch(fetchArticles(query, page));
-  }, [dispatch, query, page]);
+  const handleSectionClick = (section) => {
+    setCurrentSection(section);
+    setQuery(section); // Update query to the selected section
+    setPage(1); // Reset to first page when changing section
+  };
 
   const nextPage = () => {
     if (currentPage < totalPages) {
@@ -152,6 +160,7 @@ const ArticleGrid = () => {
     <>
       <AnimatedBackground />
       <SearchComponent onSearch={handleSearch} />
+      <SectionsComponent onSectionClick={handleSectionClick} />
       <div className="article-grid page-container">
         {loading && (
           <div className="wrapper">
