@@ -2,8 +2,8 @@
 .article-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20vw, 1fr));
-  gap: 40px;
-  padding: 20px;
+  gap: 2vw;
+  padding: 1vw;
   background: none;
   position: relative;
 }
@@ -47,8 +47,9 @@
   font-family: "Courier Prime", monospace;
   font-weight: 400;
   font-style: normal;
-  font-size: 1vw;
+  font-size: 2.8vh;
 }
+
 .article-item a {
   color: #ddd;
   font-family: "Kanit", sans-serif;
@@ -57,7 +58,7 @@
   font-style: normal;
 }
 .article-item h2 {
-  min-height: 18vh;
+  min-height: 26.5vh;
 }
 .pagination {
   display: flex;
@@ -346,4 +347,7 @@ body {
   .notfound h2 {
     font-size: 16px;
   }
+}
+.news-headlines a {
+  font-size: 3.5vh;
 }
