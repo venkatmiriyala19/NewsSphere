@@ -153,6 +153,7 @@ const ArticleGrid = () => {
               </svg>
             </span>
           </div>
+          <span className="button-text">Hi</span>
         </button>
         {pageNumbers}
         <button
