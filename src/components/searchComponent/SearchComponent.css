@@ -68,3 +68,18 @@
   margin-bottom: 3vh;
   text-align: center;
 }
+@media screen and (max-width: 768px) {
+  .search-outer-container {
+    width: 100vw; /* Ensure full width on mobile devices */
+  }
+
+  .search {
+    width: 60vw; /* Adjust width for mobile devices */
+    margin-bottom: 1rem; /* Add margin bottom for spacing */
+  }
+
+  .search__input {
+    width: 60vw; /* Adjust width for mobile devices */
+    /* Remove negative margin right */
+  }
+}

@@ -355,6 +355,7 @@ body {
 @media screen and (max-width: 768px) {
   .article-grid {
     grid-template-columns: repeat(auto-fill, minmax(50vw, 1fr));
+    gap: 5vh;
   }
   .article-item h2 {
     min-height: 10vh;
@@ -364,5 +365,43 @@ body {
   }
   .article-item a {
     font-size: 3vh;
+  }
+}
+@media screen and (max-width: 768px) {
+  .pagination {
+    flex-wrap: wrap;
+  }
+  .page-numbers {
+    /* display: inline-block; */
+    /* padding: 5px 10px; */
+    display: flex;
+    margin: 2px;
+    font-size: 2vh;
+    justify-content: center;
+    align-items: center; /* Adjust font size for mobile */
+  }
+
+  .button {
+    /* margin: 5px; */
+    transform: scale(0.5);
+    /* height: auto; */
+    /* display: none; */
+  }
+
+  .button-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .button-elem {
+    width: 20px;
+  }
+  .page-numbers {
+    font-size: 2vh;
+  }
+  .active-page-number {
+    font-size: 2vh;
   }
 }
