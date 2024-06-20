@@ -223,7 +223,6 @@ const ArticleGrid = () => {
               )}
               <h2>
                 <a
-                  style={{ fontSize: "3.5vh" }}
                   href={article.webUrl}
                   target="_blank"
                   rel="noopener noreferrer"
