@@ -375,15 +375,17 @@ body {
     /* display: inline-block; */
     /* padding: 5px 10px; */
     display: flex;
-    margin: 2px;
+    margin: 3px;
     font-size: 2vh;
     justify-content: center;
-    align-items: center; /* Adjust font size for mobile */
+    align-items: center;
+    /* Adjust font size for mobile */
   }
 
   .button {
     /* margin: 5px; */
     transform: scale(0.5);
+    /* font-size: 1vh; */
     /* height: auto; */
     /* display: none; */
   }
