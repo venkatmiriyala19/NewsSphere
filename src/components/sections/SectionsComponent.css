@@ -79,3 +79,14 @@
 .btn-23-active span {
   color: #183153;
 }
+@media screen and (max-width: 768px) {
+  .btn-23 span {
+    font-size: 2vh;
+    padding: 3vw;
+  }
+
+  .sections {
+    gap: 1vw;
+    /* padding: 0; */
+  }
+}
