@@ -4,7 +4,7 @@ export const fetchArticles =
     dispatch({ type: "FETCH_ARTICLES_REQUEST" });
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      // await new Promise((resolve) => setTimeout(resolve, 2000));
 
       // Constructing the API URL based on whether section or query is provided
       let apiUrl = `https://content.guardianapis.com/search?api-key=b6cc4b89-4977-45fa-8efa-d72716e68d49&show-fields=thumbnail&page=${page}&page-size=${pageSize}&order-by=${orderBy}`;
