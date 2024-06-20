@@ -30,26 +30,45 @@ const ArticleGrid = () => {
   };
 
   const handleSectionClick = (section) => {
-    setCurrentSection(section);
-    setQuery(section); // Update query to the selected section
+    setCurrentSection(section === "all" ? "" : section);
+    setQuery(section === "all" ? "" : section);
     setPage(1);
-    dispatch(fetchArticles(section, 1, 12, "newest", section)); // Reset to first page when changing section
+    dispatch(
+      fetchArticles(
+        section === "all" ? "" : section,
+        1,
+        12,
+        "newest",
+        section === "all" ? "" : section
+      )
+    );
   };
 
   const nextPage = () => {
     if (currentPage < totalPages) {
-      setPage(page + 1);
+      setPage((prevPage) => {
+        const newPage = prevPage + 1;
+        dispatch(fetchArticles(query, newPage, 12, "newest", currentSection));
+        return newPage;
+      });
     }
   };
 
   const prevPage = () => {
     if (currentPage > 1) {
-      setPage(page - 1);
+      setPage((prevPage) => {
+        const newPage = prevPage - 1;
+        dispatch(fetchArticles(query, newPage, 12, "newest", currentSection));
+        return newPage;
+      });
     }
   };
 
   const goToPage = (pageNumber) => {
-    setPage(pageNumber);
+    setPage(() => {
+      dispatch(fetchArticles(query, pageNumber, 12, "newest", currentSection));
+      return pageNumber;
+    });
   };
 
   const renderPagination = () => {
@@ -162,7 +181,10 @@ const ArticleGrid = () => {
     <>
       <AnimatedBackground />
       <SearchComponent onSearch={handleSearch} />
-      <SectionsComponent onSectionClick={handleSectionClick} />
+      <SectionsComponent
+        onSectionClick={handleSectionClick}
+        currentSection={currentSection}
+      />
       <div className="article-grid page-container">
         {loading && (
           <div className="wrapper">
@@ -201,6 +223,7 @@ const ArticleGrid = () => {
               )}
               <h2>
                 <a
+                  style={{ fontSize: "3.5vh" }}
                   href={article.webUrl}
                   target="_blank"
                   rel="noopener noreferrer"
