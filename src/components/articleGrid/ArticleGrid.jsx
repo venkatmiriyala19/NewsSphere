@@ -4,6 +4,7 @@ import { fetchArticles } from "../../actions/articleActions.js";
 import "./ArticleGrid.css";
 import AnimatedBackground from "../animatedBackground/AnimatedBackground";
 import SearchComponent from "../searchComponent/SearchComponent";
+import SectionsComponent from "../sections/SectionsComponent.jsx";
 
 const ArticleGrid = () => {
   const dispatch = useDispatch();
@@ -13,33 +14,61 @@ const ArticleGrid = () => {
   const currentPage = useSelector((state) => state.articles.currentPage);
   const totalPages = useSelector((state) => state.articles.pages);
 
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(""); // Default query
   const [page, setPage] = useState(1);
+  const [currentSection, setCurrentSection] = useState(""); // Default section
+
+  useEffect(() => {
+    dispatch(fetchArticles(query, page, 12, "newest", currentSection));
+  }, []);
 
   const handleSearch = (query) => {
     setQuery(query);
-    setPage(1); // Reset to first page when performing a new search
-    dispatch(fetchArticles(query, 1));
+    setPage(1);
+    setCurrentSection(""); // Reset to first page when performing a new search
+    dispatch(fetchArticles(query, 1, 12, "newest", ""));
   };
 
-  useEffect(() => {
-    dispatch(fetchArticles(query, page));
-  }, [dispatch, query, page]);
+  const handleSectionClick = (section) => {
+    setCurrentSection(section === "all" ? "" : section);
+    setQuery(section === "all" ? "" : section);
+    setPage(1);
+    dispatch(
+      fetchArticles(
+        section === "all" ? "" : section,
+        1,
+        12,
+        "newest",
+        section === "all" ? "" : section
+      )
+    );
+  };
 
   const nextPage = () => {
     if (currentPage < totalPages) {
-      setPage(page + 1);
+      setPage((prevPage) => {
+        const newPage = prevPage + 1;
+        dispatch(fetchArticles(query, newPage, 12, "newest", currentSection));
+        return newPage;
+      });
     }
   };
 
   const prevPage = () => {
     if (currentPage > 1) {
-      setPage(page - 1);
+      setPage((prevPage) => {
+        const newPage = prevPage - 1;
+        dispatch(fetchArticles(query, newPage, 12, "newest", currentSection));
+        return newPage;
+      });
     }
   };
 
   const goToPage = (pageNumber) => {
-    setPage(pageNumber);
+    setPage(() => {
+      dispatch(fetchArticles(query, pageNumber, 12, "newest", currentSection));
+      return pageNumber;
+    });
   };
 
   const renderPagination = () => {
@@ -112,13 +141,13 @@ const ArticleGrid = () => {
           disabled={currentPage === 1}
           className="button"
         >
-          <div class="button-box">
-            <span class="button-elem">
+          <div className="button-box">
+            <span className="button-elem">
               <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
                 <path d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"></path>
               </svg>
             </span>
-            <span class="button-elem">
+            <span className="button-elem">
               <svg viewBox="0 0 46 40">
                 <path d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"></path>
               </svg>
@@ -131,13 +160,13 @@ const ArticleGrid = () => {
           disabled={currentPage === totalPages}
           className="button"
         >
-          <div class="button-box">
-            <span class="button-elem">
+          <div className="button-box">
+            <span className="button-elem">
               <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
                 <path d="M0 20.038c0-.7.3-1.5.8-2.1l16-17c1.1-1 3.2-1.4 4.4-.3 1.2 1.1 1.2 3.3 0 4.4L9.9 16.938H43c1.7 0 3 1.3 3 3s-1.3 3-3 3H9.9l11.3 11.9c1 1 1.2 3.3 0 4.4-1.2 1.1-3.3.8-4.4-.3l-16-17c-.5-.5-.8-1.1-.8-1.9z"></path>
               </svg>
             </span>
-            <span class="button-elem">
+            <span className="button-elem">
               <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
                 <path d="M0 20.038c0-.7.3-1.5.8-2.1l16-17c1.1-1 3.2-1.4 4.4-.3 1.2 1.1 1.2 3.3 0 4.4L9.9 16.938H43c1.7 0 3 1.3 3 3s-1.3 3-3 3H9.9l11.3 11.9c1 1 1.2 3.3 0 4.4-1.2 1.1-3.3.8-4.4-.3l-16-17c-.5-.5-.8-1.1-.8-1.9z"></path>
               </svg>
@@ -152,15 +181,19 @@ const ArticleGrid = () => {
     <>
       <AnimatedBackground />
       <SearchComponent onSearch={handleSearch} />
+      <SectionsComponent
+        onSectionClick={handleSectionClick}
+        currentSection={currentSection}
+      />
       <div className="article-grid page-container">
         {loading && (
-          <div class="wrapper">
-            <div class="circle"></div>
-            <div class="circle"></div>
-            <div class="circle"></div>
-            <div class="shadow"></div>
-            <div class="shadow"></div>
-            <div class="shadow"></div>
+          <div className="wrapper">
+            <div className="circle"></div>
+            <div className="circle"></div>
+            <div className="circle"></div>
+            <div className="shadow"></div>
+            <div className="shadow"></div>
+            <div className="shadow"></div>
           </div>
         )}
         {error && (
@@ -190,6 +223,7 @@ const ArticleGrid = () => {
               )}
               <h2>
                 <a
+                  style={{ fontSize: "3.5vh" }}
                   href={article.webUrl}
                   target="_blank"
                   rel="noopener noreferrer"
