@@ -1,5 +1,3 @@
-// reducers/articlesReducer.js
-
 const initialState = {
   articles: [],
   loading: false,

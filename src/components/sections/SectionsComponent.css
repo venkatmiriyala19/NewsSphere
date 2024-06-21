@@ -21,7 +21,7 @@
   margin: 5px;
   text-transform: uppercase;
   /* width: 10vw; */
-  height: auto; /* Adjust margin for spacing around buttons */
+  height: auto;
 }
 
 .btn-23::after {

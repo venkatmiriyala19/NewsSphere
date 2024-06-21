@@ -14,9 +14,9 @@ const ArticleGrid = () => {
   const currentPage = useSelector((state) => state.articles.currentPage);
   const totalPages = useSelector((state) => state.articles.pages);
 
-  const [query, setQuery] = useState(""); // Default query
+  const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
-  const [currentSection, setCurrentSection] = useState(""); // Default section
+  const [currentSection, setCurrentSection] = useState("");
 
   useEffect(() => {
     dispatch(fetchArticles(query, page, 12, "newest", currentSection));
@@ -25,7 +25,7 @@ const ArticleGrid = () => {
   const handleSearch = (query) => {
     setQuery(query);
     setPage(1);
-    setCurrentSection(""); // Reset to first page when performing a new search
+    setCurrentSection("");
     dispatch(fetchArticles(query, 1, 12, "newest", ""));
   };
 
@@ -75,18 +75,14 @@ const ArticleGrid = () => {
     if (totalPages === 0) return null;
 
     const pageNumbers = [];
-    const visiblePages = 8; // Number of visible page numbers before showing ellipsis
-
-    // Calculate start and end points for pagination display
+    const visiblePages = 8;
     let startPage = Math.max(1, currentPage - Math.floor(visiblePages / 2));
     let endPage = Math.min(totalPages, startPage + visiblePages - 1);
 
-    // Adjust startPage and endPage if they go out of bounds
     if (endPage - startPage + 1 < visiblePages) {
       startPage = Math.max(1, endPage - visiblePages + 1);
     }
 
-    // Add ellipsis at the beginning if needed
     if (startPage > 1) {
       pageNumbers.push(
         <button key={1} onClick={() => goToPage(1)} className="page-numbers">
@@ -102,7 +98,6 @@ const ArticleGrid = () => {
       }
     }
 
-    // Add visible page numbers
     for (let i = startPage; i <= endPage; i++) {
       pageNumbers.push(
         <button
@@ -153,6 +148,7 @@ const ArticleGrid = () => {
               </svg>
             </span>
           </div>
+          <span className="button-text">Hi</span>
         </button>
         {pageNumbers}
         <button

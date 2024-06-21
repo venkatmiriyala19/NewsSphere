@@ -65,6 +65,9 @@
   display: flex;
   justify-content: center;
 }
+.button-text {
+  display: none;
+}
 .button {
   display: block;
   position: relative;
@@ -277,7 +280,7 @@ body {
   transform: translate(-50%, -50%);
   width: 100%;
   text-align: center;
-  z-index: 1000; /* Ensure it's above other content */
+  z-index: 1000;
 }
 
 .notfound {
@@ -285,7 +288,7 @@ body {
   width: 100%;
   line-height: 1.4;
   text-align: center;
-  margin: 0 auto; /* Center horizontally within #notfound */
+  margin: 0 auto;
 }
 
 .notfound .notfound-404 {
@@ -375,19 +378,19 @@ body {
     /* display: inline-block; */
     /* padding: 5px 10px; */
     display: flex;
-    margin: 3px;
+    margin: 5px;
     font-size: 2vh;
     justify-content: center;
     align-items: center;
-    /* Adjust font size for mobile */
   }
 
   .button {
     /* margin: 5px; */
-    transform: scale(0.5);
+    /* transform: scale(0.5); */
     /* font-size: 1vh; */
     /* height: auto; */
     /* display: none; */
+    display: none;
   }
 
   .button-box {
@@ -405,5 +408,8 @@ body {
   }
   .active-page-number {
     font-size: 2vh;
+  }
+  .button-text {
+    display: inline-block;
   }
 }
