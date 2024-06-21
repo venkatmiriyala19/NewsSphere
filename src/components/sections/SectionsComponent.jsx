@@ -18,7 +18,7 @@ const SectionsComponent = ({ onSectionClick, currentSection }) => {
     "science",
     "lifeandstyle",
     "commentisfree",
-  ]; // Example sections
+  ];
 
   return (
     <div className="sections">

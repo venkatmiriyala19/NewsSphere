@@ -280,7 +280,7 @@ body {
   transform: translate(-50%, -50%);
   width: 100%;
   text-align: center;
-  z-index: 1000; /* Ensure it's above other content */
+  z-index: 1000;
 }
 
 .notfound {
@@ -288,7 +288,7 @@ body {
   width: 100%;
   line-height: 1.4;
   text-align: center;
-  margin: 0 auto; /* Center horizontally within #notfound */
+  margin: 0 auto;
 }
 
 .notfound .notfound-404 {
@@ -382,7 +382,6 @@ body {
     font-size: 2vh;
     justify-content: center;
     align-items: center;
-    /* Adjust font size for mobile */
   }
 
   .button {
