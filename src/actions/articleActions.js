@@ -6,7 +6,7 @@ export const fetchArticles =
     try {
       // await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      let apiUrl = `https://content.guardianapis.com/search?api-key=b6cc4b89-4977-45fa-8efa-d72716e68d49&show-fields=thumbnail&page=${page}&page-size=${pageSize}&order-by=${orderBy}`;
+      let apiUrl = `https://content.guardianapis.com/search?api-key=cae658f8-8af5-4106-bec4-66232092b612&show-fields=thumbnail&page=${page}&page-size=${pageSize}&order-by=${orderBy}`;
 
       if (query) {
         apiUrl += `&q=${query}`;
