@@ -18,6 +18,7 @@ const SectionsComponent = ({ onSectionClick, currentSection }) => {
     "science",
     "lifeandstyle",
     "commentisfree",
+    
   ];
 
   return (
